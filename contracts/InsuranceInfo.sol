@@ -16,6 +16,14 @@ contract InsuranceInfo {
         }
     }
 
+    function UpdateStore(string privId, string insuranceInfo) {
+        if(keccak256(dataStore[privId]) == keccak256("")){
+            revert();
+        } else {
+            dataStore[privId] = insuranceInfo;
+        }
+    }
+
     function RetrieveFromStore(string privId) returns (string) {
         return dataStore[privId];
     }

@@ -16,6 +16,14 @@ contract Addresses {
         }
     }
 
+    function UpdateStore(string privId, string streetAddress) {
+        if(keccak256(dataStore[privId]) == keccak256("")){
+            revert();
+        } else {
+            dataStore[privId] = streetAddress;
+        }
+    }
+
     function RetrieveFromStore(string privId) returns (string) {
         return dataStore[privId];
     }
