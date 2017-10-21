@@ -1,8 +1,9 @@
 var Patients = artifacts.require("./Patients.sol");
-var Insurance = artifacts.require("./Insurance.sol");
+var InsuranceInfo = artifacts.require("./InsuranceInfo.sol");
+var Addresses = artifacts.require("./Addresses.sol");
 
 module.exports = function(deployer) {
   deployer.deploy(Patients);
-  deployer.deploy(Insurance);
-
+  deployer.deploy(InsuranceInfo);
+  deployer.deploy(Addresses);
 };

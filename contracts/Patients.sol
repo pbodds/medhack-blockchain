@@ -14,16 +14,6 @@ Patient JSON Structure
             state: bytes32,
             zip: bytes32,
         },
-        insuranceInfo: {
-            company: bytes32,
-            idNum: bytes32,
-            group: bytes32,
-            plan: bytes32,
-            rxBIN: bytes32,
-            rxPCN: bytes32,
-            rxGroup: bytes32,
-            copayment: bytes32
-        }
     }
 */
 
