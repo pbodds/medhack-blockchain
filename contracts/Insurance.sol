@@ -20,6 +20,7 @@ contract Insurance {
     mapping(string => InsuranceInfo) store;
 
     function AddToScore(string privId, string company, string idNum, string group, string plan, string rxBIN, string rxPCN, string rxGroup, string copayment) returns (bool) {
+        store[privId] = InsuranceInfo(company, idNum, group, plan, rxBIN, rxPCN, rxGroup, copayment);
         return true;
     }
 
