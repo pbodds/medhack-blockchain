@@ -8,11 +8,11 @@ pragma solidity ^0.4.4;
 contract Addresses {    
     mapping(string => string) dataStore;
 
-    function AddToStore(string privId, string address) {
+    function AddToStore(string privId, string streetAddress) {
         if(keccak256(dataStore[privId]) != keccak256("")){
             revert();
         } else {
-            dataStore[privId] = address;
+            dataStore[privId] = streetAddress;
         }
     }
 
