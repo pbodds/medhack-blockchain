@@ -1,23 +1,5 @@
 pragma solidity ^0.4.4;
 
-
-/*--
-Patient JSON Structure
-    {
-        name: bytes32,
-        privateID: bytes32,
-        dob: bytes32,
-        streetAddress: {
-            streetL1: bytes32,
-            streetL2; bytes32,
-            city: bytes32,
-            state: bytes32,
-            zip: bytes32,
-        },
-    }
-*/
-
-
 contract Patients {
     //Patient Struct
     struct Patient {

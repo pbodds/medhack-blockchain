@@ -1,26 +1,26 @@
 pragma solidity ^0.4.4;
 
 /*
-*   Contract to store medications utilized by patients
-*   Relates a private id with UN-ENCRYPTED medication records
+*   Contract to store patients medical history record
+*   Relates a private id with UN-ENCRYPTED medical history records
 */
 
-contract Medications {    
+contract MedicalHistory {    
     mapping(string => string) dataStore;
 
-    function AddToStore(string privId, string medicationRecord) {
+    function AddToStore(string privId, string medicalHistoryRecord) {
         if(keccak256(dataStore[privId]) != keccak256("")){
             revert();
         } else {
-            dataStore[privId] = medicationRecord;
+            dataStore[privId] = medicalHistoryRecord;
         }
     }
 
-    function UpdateStore(string privId, string medicationRecord) {
+    function UpdateStore(string privId, string medicalHistoryRecord) {
         if(keccak256(dataStore[privId]) == keccak256("")){
             revert();
         } else {
-            dataStore[privId] = medicationRecord;
+            dataStore[privId] = medicalHistoryRecord;
         }
     }
 
