@@ -14,7 +14,7 @@ contract Patients {
 
 
 
-    function CreateNewPatient(string name, string dob) returns (string) {
+    function CreateNewPatient(string name, string dob, string privateId) returns (string) {
         uId++;
         string memory pubId = bytes32ToString(keccak256(uId + 259118));
         patients[pubId] = Patient(bytes32ToString(keccak256(uId + 354989)), name, dob);
