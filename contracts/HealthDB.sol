@@ -7,7 +7,7 @@ pragma solidity ^0.4.4;
 
 
 //Proxy Contracts!!!
-contract PatientsProxy { //The patients proxy needs tobe reengineered 
+contract PatientsProxy { //The patients proxy needs to be reengineered 
     function CreateNewPatient(string name, string dob) returns (string);
     function GetPatient(string patientPubId) returns (string, string, string);
 }
@@ -33,19 +33,19 @@ contract MedicalHistoryProxy {
 contract AllergiesProxy {
     function AddToStore(string privId, string allergyList);
     function UpdateStore(string privId, string allergyList);
-    function RetrieveFromStore(string privId) returns (string);
+    function RetrieveFromStore(string privId) returns (bytes32);
 }
 
 contract ChronicMedicalConditionsProxy {
     function AddToStore(string privId, string chronicMedicalCondtionsRecord);
     function UpdateStore(string privId, string chronicMedicalCondtionsRecord);
-    function RetrieveFromStore(string privId) returns (string);
+    function RetrieveFromStore(string privId) returns (bytes32);
 }
 
 contract FamilyMedicalHistoryProxy {
     function AddToStore(string privId, string familyMedicalHistoryRecord);
     function UpdateStore(string privId, string familyMedicalHistoryRecord);
-    function RetrieveFromStore(string privId) returns (string);
+    function RetrieveFromStore(string privId) returns (bytes32);
 }
 
 contract SocialHistoryProxy {
@@ -67,13 +67,13 @@ contract LabResultsProxy {
 }
 
 contract HealthDB {
-    PatientsProxy patients = PatientsProxy();
-    AddressesProxy addresses = AddressesProxy();
-    InsuranceInfoProxy insuranceInfo = InsuranceInfoProxy();
-    MedicalHistoryProxy medicalHistory = MedicalHistoryProxy();
-    AllergiesProxy allergies = AllergiesProxy();
-    ChronicMedicalConditionsProxy chronicMedicalConditions = ChronicMedicalConditionsProxy();
-    FamilyMedicalHistoryProxy familyMedicalHistory = FamilyMedicalHistoryProxy();
+    PatientsProxy patients = PatientsProxy(); //Needs Redone
+    AddressesProxy addresses = AddressesProxy(); //Needs Testing
+    InsuranceInfoProxy insuranceInfo = InsuranceInfoProxy(); //Needs Testing
+    MedicalHistoryProxy medicalHistory = MedicalHistoryProxy(); //Needs Testing
+    AllergiesProxy allergies = AllergiesProxy(); //Needs Testing
+    ChronicMedicalConditionsProxy chronicMedicalConditions = ChronicMedicalConditionsProxy(); //Needs Testing
+    FamilyMedicalHistoryProxy familyMedicalHistory = FamilyMedicalHistoryProxy(); //Needs Testing
     SocialHistoryProxy socialHistory = SocialHistoryProxy();
     PrescriptionsProxy prescriptions = PrescriptionsProxy();
     LabResultsProxy labResults = LabResultsProxy();
@@ -132,13 +132,69 @@ contract HealthDB {
     }
 
     //Update a patient's medical history on the blockchain, only to be called when updating the medical history of an existing patient
-    //Medical history will be sent to ans stored on the blockchain unencrypted
+    //Medical history will be sent to and stored on the blockchain unencrypted
     function UpdatePatientMedicalHistory(string privateId, string updatedPatientMedicalHistory) {
         medicalHistory.UpdateStore(privateId, updatedPatientMedicalHistory);
     }
 
-    function GetPatientMedicalHistory(string privateId) returns (string){
+    //Geta patient's medical history from the blockchain
+    //Medical info will reach the front end unenctypted
+    function GetPatientMedicalHistory(string privateId) returns (string) {
         return bytes32ToString(medicalHistory.RetrieveFromStore(privateId));
+    }
+
+    //Add a patient's allergy info to the blockchain, only to be called when adding a patient's allergy info for the first time
+    //Allergy information will be sent to and stored on the blockchain unenctypted 
+    function AddPatientAllergyInfo(string privateId, string patientAllergyInfo) {
+        allergies.AddToStore(privateId, patientAllergyInfo);
+    }
+
+    //Update a patient's allergy info on the blockchain, only to be called when updating the allergy info of an existing patient
+    //Allergy information will be sent to and stored on the blockchain unencrypted
+    function UpdatePatientAllergyInfo(string privateId, string updatedPatientAllergyInfo) {
+        allergies.UpdateStore(privateId, updatedPatientAllergyInfo);
+    }
+
+    //Get a patient's allergy info from the blockchain
+    //Allergy info will reach the front end unencrypted
+    function GetPatientAllergyInfo(string privateId) returns (string) {
+        return bytes32ToString(allergies.RetrieveFromStore(privateId));
+    }
+
+    //Add a patient's chronic medical conditions to the blockchain, only to be called when adding a patient's chronic medical conditions for the first time
+    //Chronic medical conditions will be sent to and stored on the blockchain unencrypted
+    function AddPatientChronicMedicalConditions(string privateId, string patientChronicMecialConditions) {
+        chronicMedicalConditions.AddToStore(privateId, patientChronicMecialConditions);
+    }
+
+    //Update a patient's chronic medical conditions on the blockchain, only to be called when updating the chronic medical conditions of an existing patient
+    //Chronic medical conditions will be sent to and stored on the blockchain unencrypted
+    function UpdatePatientChronicMedicalConditions(string privateId, string updatedPatientChronicMedicalConditions) {
+        chronicMedicalConditions.UpdateStore(privateId, updatedPatientChronicMedicalConditions);
+    }
+
+    //Get a patients chronic medical conditions from the blockchain
+    //Chronic medical conditions will reach the front end unencrypted
+    function GetPatientChronicMedicalConditions(string privateId) returns (string) {
+        return bytes32ToString(chronicMedicalConditions.RetrieveFromStore(privateId));
+    }
+
+    //Add a patient's family medical history to the blockchain, only to be called when adding a patient's family medical history to the blockchain for the first tiem
+    //Family medical history will reach the front end unencrypted
+    function AddPatientFamilyMedicalHistory(string publicId, string patientFamilyMedicalHistory) {
+        familyMedicalHistory.AddToStore(publicId, patientFamilyMedicalHistory);
+    }
+
+    //Update a patient's family medical history on the blockchain, only to be called when updating the family medical history of an existing patient
+    //Family medical history will be sent to and stored on the blockchain unencrypted
+    function UpdatePatientFamilyMedicalHistory(string publicId, string updatedPatientFamilyMedicalHistory) {
+        familyMedicalHistory.UpdateStore(publicId, updatedPatientFamilyMedicalHistory);
+    }
+    
+    //Get a patient's family medical history from the blockchain
+    //Family medical history will reach the front end unencrypted
+    function GetPatientFamilyMedicalHistory(string publicId) returns (string) {
+        return bytes32ToString(familyMedicalHistory.RetrieveFromStore(publicId));
     }
 
 
